@@ -6,7 +6,7 @@ use App\Http\Controllers\SyncController;
 use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('file.index');
 });
 
 Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
