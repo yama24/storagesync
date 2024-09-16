@@ -12,8 +12,15 @@ class FileController extends Controller
      */
     public function index()
     {
-        $disk = Storage::disk('gcs');
-        $metadata = $disk->get($this->folder . '/metadata.json');
+        try {
+            $disk = Storage::disk('gcs');
+        } catch (\Throwable $th) {
+            //throw $th;
+            $disk = null;
+        }
+        if($disk){
+            $metadata = $disk->get($this->folder . '/metadata.json');
+        }
         $metadata = json_decode($metadata ?? '[]', true);
 
         $filetree = [];
