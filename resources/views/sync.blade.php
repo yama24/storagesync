@@ -140,8 +140,6 @@
                         // }, 3000);
                         countSync++;
 
-                        console.log(countSync, files.length);
-
                         if (countSync == files.length) {
                             countSync = 0;
                             $('#syncbutton').attr('disabled', false);

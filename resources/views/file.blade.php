@@ -270,7 +270,6 @@
 
         function selectFile(file) {
             file = JSON.parse(decodeURI(file));
-            console.log(file);
             $('#fileInfo').html('');
             var html = '';
             html += '<table class="table table-sm table-striped w-100">';

@@ -151,7 +151,6 @@
                 // });
                 var intervalFolder = setInterval(function() {
                     if (folders[lvl - 1].length > 0) {
-                        // console.log(folders[lvl - 1]);
                         $('#foldertree .lv' + lvl + ' input[data-val="' + folders[lvl - 1] + '"]').prop(
                             'checked',
                             true)
