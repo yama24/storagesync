@@ -117,6 +117,11 @@
                                         'color' => 'success',
                                         'viewable' => true,
                                     ],
+                                    'video/x-matroska' => [
+                                        'icon' => 'file-video',
+                                        'color' => 'success',
+                                        'viewable' => false,
+                                    ],
                                     'video/webm' => [
                                         'icon' => 'file-video',
                                         'color' => 'success',

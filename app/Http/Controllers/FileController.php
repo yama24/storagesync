@@ -14,7 +14,7 @@ class FileController extends Controller
     {
         $disk = Storage::disk('gcs');
         $metadata = $disk->get($this->folder . '/metadata.json');
-        $metadata = json_decode($metadata, true);
+        $metadata = json_decode($metadata ?? '[]', true);
 
         $filetree = [];
         foreach ($metadata as $key => $value) {

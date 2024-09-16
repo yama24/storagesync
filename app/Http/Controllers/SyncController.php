@@ -14,9 +14,13 @@ class SyncController extends Controller
      */
     public function index()
     {
-        $folder = Setting::where('name', 'fullpath')->first()->value;
+        $folder = Setting::where('name', 'fullpath')->first()->value ?? null;
 
-        $files = getFilesRecursive($folder);
+        $files = [];
+        if($folder) {
+            $files = getFilesRecursive($folder);
+        }
+
 
         // foreach ($files as $key => $file) {
         //     $exists = Storage::disk('gcs')->exists($this->folder . '/' . $file);
