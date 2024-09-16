@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Native\Laravel\Facades\Notification;
 
 class SyncController extends Controller
 {
@@ -126,5 +127,11 @@ class SyncController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function finish(Request $request){
+        Notification::title('Notification Storage Sync')
+        ->message('Files synced successfully!')
+        ->show();
     }
 }

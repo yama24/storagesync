@@ -15,6 +15,7 @@ Route::get('/setting/folder', [SettingController::class, 'folder'])->name('setti
 
 Route::get('/sync', [SyncController::class, 'index'])->name('sync.index');
 Route::post('/sync/sync', [SyncController::class, 'store'])->name('sync.sync');
+Route::get('/sync/finish', [SyncController::class, 'finish'])->name('sync.finish');
 
 Route::get('/file', [FileController::class, 'index'])->name('file.index');
 Route::get('/file/download', [FileController::class, 'download'])->name('file.download');

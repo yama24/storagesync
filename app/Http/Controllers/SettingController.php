@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Native\Laravel\Facades\Notification;
 
 class SettingController extends Controller
 {
@@ -70,6 +71,10 @@ class SettingController extends Controller
                 'value' => $request->input($s->name) ?? '',
             ]);
         }
+
+        Notification::title('Notification Storage Sync')
+        ->message('Settings updated!')
+        ->show();
 
         return redirect()->route('setting.index')->with('status', 'Settings updated!');
     }

@@ -119,21 +119,43 @@
                         //     //remove row after 3 seconds
                         //     $('#' + fileId).remove();
                         // }, 3000);
-                        countSync++;
-
-                        if (countSync == files.length) {
-                            countSync = 0;
-                            $('#syncbutton').attr('disabled', false);
-                        }
                     } else {
                         $('#' + fileId).find('.loading').hide().after(
                             '<span class="badge bg-danger">' + response.message + '</span>');
                     }
+
+                    countSync++;
+
+                    if (countSync == files.length) {
+                        countSync = 0;
+                        finishSync();
+                    }
+
                 },
                 error: function(response) {
                     $('#' + fileId).find('.loading').hide().after(
                         '<span class="badge bg-danger">Failed</span>');
 
+                    countSync++;
+
+                    if (countSync == files.length) {
+                        countSync = 0;
+                        finishSync();
+                    }
+
+                }
+            });
+        }
+
+        function finishSync() {
+            $('#syncbutton').attr('disabled', false);
+
+            $.ajax({
+                url: '{{ route('sync.finish') }}',
+                type: 'GET',
+                success: function(response) {
+                },
+                error: function(response) {
                 }
             });
         }
