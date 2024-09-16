@@ -18,3 +18,4 @@ Route::post('/sync/sync', [SyncController::class, 'store'])->name('sync.sync');
 
 Route::get('/file', [FileController::class, 'index'])->name('file.index');
 Route::get('/file/download', [FileController::class, 'download'])->name('file.download');
+Route::get('/file/view', [FileController::class, 'view'])->name('file.view');

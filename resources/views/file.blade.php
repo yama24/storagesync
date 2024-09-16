@@ -55,66 +55,82 @@
                                     'application/pdf' => [
                                         'icon' => 'file-pdf',
                                         'color' => 'danger',
+                                        'viewable' => true,
                                     ],
                                     'image/jpeg' => [
                                         'icon' => 'file-image',
                                         'color' => 'primary',
+                                        'viewable' => true,
                                     ],
                                     'image/png' => [
                                         'icon' => 'file-image',
                                         'color' => 'primary',
+                                        'viewable' => true,
                                     ],
                                     'image/gif' => [
                                         'icon' => 'file-image',
                                         'color' => 'primary',
+                                        'viewable' => true,
                                     ],
                                     'folder' => [
                                         'icon' => 'folder',
                                         'color' => 'warning',
+                                        'viewable' => false,
                                     ],
                                     'audio/mpeg' => [
                                         'icon' => 'file-audio',
                                         'color' => 'info',
+                                        'viewable' => true,
                                     ],
                                     'audio/ogg' => [
                                         'icon' => 'file-audio',
                                         'color' => 'info',
+                                        'viewable' => true,
                                     ],
                                     'audio/wav' => [
                                         'icon' => 'file-audio',
                                         'color' => 'info',
+                                        'viewable' => true,
                                     ],
                                     'audio/mp3' => [
                                         'icon' => 'file-audio',
                                         'color' => 'info',
+                                        'viewable' => true,
                                     ],
                                     'audio/m4a' => [
                                         'icon' => 'file-audio',
                                         'color' => 'info',
+                                        'viewable' => true,
                                     ],
                                     'audio/x-wav' => [
                                         'icon' => 'file-audio',
                                         'color' => 'info',
+                                        'viewable' => true,
                                     ],
                                     'video/mp4' => [
                                         'icon' => 'file-video',
                                         'color' => 'success',
+                                        'viewable' => true,
                                     ],
                                     'video/ogg' => [
                                         'icon' => 'file-video',
                                         'color' => 'success',
+                                        'viewable' => true,
                                     ],
                                     'video/webm' => [
                                         'icon' => 'file-video',
                                         'color' => 'success',
+                                        'viewable' => true,
                                     ],
                                     'text/plain' => [
                                         'icon' => 'file-alt',
                                         'color' => 'secondary',
+                                        'viewable' => false,
                                     ],
                                     'application/zip' => [
                                         'icon' => 'file-archive',
                                         'color' => 'dark',
+                                        'viewable' => false,
                                     ],
                                 ];
                             @endphp
@@ -270,6 +286,12 @@
 
         function selectFile(file) {
             file = JSON.parse(decodeURI(file));
+
+            var viewable = false;
+            if (iconLists[file['type']] !== undefined) {
+                viewable = iconLists[file['type']]['viewable'];
+            }
+
             $('#fileInfo').html('');
             var html = '';
             html += '<table class="table table-sm table-striped w-100">';
@@ -303,6 +325,11 @@
             html +=
                 '<button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" title="Download" onclick="downloadFile(\'' +
                 file['path'] + '\')"><i class="fas fa-download"></i></button>';
+            if (viewable) {
+                html +=
+                    '<button class="btn btn-danger btn-sm ms-1" data-bs-toggle="tooltip" title="View" onclick="viewFile(\'' +
+                    file['path'] + '\')"><i class="fas fa-eye"></i></button>';
+            }
             $('#fileInfo').html(html);
             initTooltip();
         }
@@ -342,6 +369,12 @@
                     link.remove();
                 }
             });
+        }
+
+        function viewFile(path) {
+            path = encodeURI(path);
+            // open in new tab
+            window.open('{{ route('file.view') }}' + '?path=' + path, '_blank');
         }
     </script>
 

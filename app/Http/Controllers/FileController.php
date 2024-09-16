@@ -108,8 +108,24 @@ class FileController extends Controller
         if($exists){
             header('Access-Control-Expose-Headers: Content-Disposition');
             return $disk->download($fullpath);
-        } else {
-            return response()->json(['status' => 'error', 'message' => 'File not found']);
         }
+        return response()->json(['status' => 'error', 'message' => 'File not found']);
+    }
+
+    public function view(Request $request){
+        $path = $request->input('path');
+        $disk = Storage::disk('gcs');
+        $fullpath = $this->folder . '/' . $path;
+        //remove double slashes
+        $fullpath = preg_replace('/\/+/', '/', $fullpath);
+        $exists = $disk->exists($fullpath);
+        if($exists){
+            //get file content
+            $url = $disk->temporaryUrl($fullpath, now()->addMinutes(5));
+
+            return redirect($url);
+        }
+        //return view 404
+        return abort(404);
     }
 }
